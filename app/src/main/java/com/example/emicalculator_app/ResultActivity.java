@@ -1,13 +1,15 @@
 package com.example.emicalculator_app;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.emicalculator_app.R;
 
 public class ResultActivity extends AppCompatActivity {
 
     private TextView tvEmiResult, tvPrincipalAmount, tvInterestRate, tvTenure, tvPaymentFrequency;
+    private Button btnStartOver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,7 @@ public class ResultActivity extends AppCompatActivity {
         tvInterestRate = findViewById(R.id.tvInterestRate);
         tvTenure = findViewById(R.id.tvTenure);
         tvPaymentFrequency = findViewById(R.id.tvPaymentFrequency);
+        btnStartOver = findViewById(R.id.btnStartOver); // Initialize button
 
         // Get data from Intent
         String emi = getIntent().getStringExtra("EMI");
@@ -34,5 +37,14 @@ public class ResultActivity extends AppCompatActivity {
         tvInterestRate.setText("Interest Rate: " + interestRate);
         tvTenure.setText("Tenure: " + tenure);
         tvPaymentFrequency.setText("Payment Frequency: " + paymentFrequency);
+
+        // Set click listener for the Start Over button
+        btnStartOver.setOnClickListener(v -> {
+            // Navigate back to MainActivity
+            Intent intent = new Intent(ResultActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Clears the back stack
+            startActivity(intent);
+            finish(); // Close the current activity
+        });
     }
 }

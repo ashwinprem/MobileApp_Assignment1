@@ -5,7 +5,6 @@
     <string name="interest_rate">Interest Rate</string>
     <string name="amortization_period">Amortization Period (Years)</string>
     <string name="calculate_emi">Calculate my payments</string>
-    <string name="emi_result">Your monthly payment: </string>
     <string name="return_back">Start over</string>
     <string name="Payment_result">My Payment results</string>
     <string name="Mortgage_details">Mortgage details</string>

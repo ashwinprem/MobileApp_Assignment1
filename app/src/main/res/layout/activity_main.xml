@@ -1,19 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="#E8F5E9"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- Dark Green Header -->
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/mortgage_calculator"
+    android:background="#1B5E20"
+    android:textColor="#FFFFFF"
+    android:padding="16dp"
+    android:gravity="center"
+    android:textSize="20sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Mortgage Principal Amount -->
+<EditText
+    android:id="@+id/etPrincipal"
+    android:layout_width="320dp"
+    android:layout_height="48dp"
+    android:autofillHints=""
+    android:hint="@string/enter_principal"
+    android:inputType="numberDecimal"
+    android:layout_marginTop="20dp"
+    android:backgroundTint="#388E3C"
+    android:textColor="#1B5E20"
+    android:textColorHint="#1B5E20" />
+
+    <!-- Interest Rate (Spinner dropdown) -->
+<TextView
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:text="@string/interest_rate"
+    android:textColor="#1B5E20"
+    android:layout_marginTop="10dp"
+    android:gravity="center" />
+
+<Spinner
+    android:id="@+id/spinnerInterestRate"
+    android:layout_width="320dp"
+    android:layout_height="48dp"
+    android:backgroundTint="#388E3C"
+    android:layout_marginTop="10dp" />
+
+    <!-- Amortization Period (Spinner dropdown) -->
+<TextView
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:text="@string/amortization_period"
+    android:textColor="#1B5E20"
+    android:layout_marginTop="10dp"
+    android:gravity="center" />
+
+<Spinner
+    android:id="@+id/spinnerTenure"
+    android:layout_width="320dp"
+    android:layout_height="48dp"
+    android:backgroundTint="#388E3C"
+    android:layout_marginTop="10dp" />
+
+    <!-- Button to Calculate EMI -->
+<Button
+    android:id="@+id/btnCalculate"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:text="@string/calculate_emi"
+    android:backgroundTint="#D843"
+    android:textColor="#FFFFFF"
+    android:layout_marginTop="20dp"
+    android:gravity="center"
+    android:padding="12dp" />
+
+    <!-- TextView to Display the Result -->
+<TextView
+    android:id="@+id/tvResult"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/emi_result"
+    android:textSize="18sp"
+    android:layout_marginTop="20dp"
+    android:textColor="#1B5E20"
+    android:gravity="center" />
+</LinearLayout>

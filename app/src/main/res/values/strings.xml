@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">EmiCalculator_App</string>
+    <string name="app_name">MortgageEMICalculator</string>
+    <string name="mortgage_calculator">Mortgage Payment Calculator</string>
+    <string name="enter_principal">Enter Principal Amount</string>
+    <string name="interest_rate">Interest Rate</string>
+    <string name="amortization_period">Amortization Period (Years)</string>
+    <string name="calculate_emi">Calculate my payments</string>
+    <string name="emi_result">Your monthly payment: </string>
 </resources>

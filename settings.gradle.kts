@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "EMICalculator_App"
+rootProject.name = "EmiCalculator_App"
 include(":app")
  

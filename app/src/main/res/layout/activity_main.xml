@@ -31,7 +31,6 @@
     android:textColor="#1B5E20"
     android:textColorHint="#1B5E20" />
 
-    <!-- Interest Rate (Spinner dropdown) -->
 <TextView
     android:layout_width="320dp"
     android:layout_height="wrap_content"
@@ -40,6 +39,7 @@
     android:layout_marginTop="10dp"
     android:gravity="center" />
 
+    <!-- Interest Rate (Spinner dropdown) -->
 <Spinner
     android:id="@+id/spinnerInterestRate"
     android:layout_width="320dp"
@@ -47,7 +47,6 @@
     android:backgroundTint="#388E3C"
     android:layout_marginTop="10dp" />
 
-    <!-- Amortization Period (Spinner dropdown) -->
 <TextView
     android:layout_width="320dp"
     android:layout_height="wrap_content"
@@ -56,6 +55,7 @@
     android:layout_marginTop="10dp"
     android:gravity="center" />
 
+    <!-- Amortization Period (Spinner dropdown) -->
 <Spinner
     android:id="@+id/spinnerTenure"
     android:layout_width="320dp"

@@ -2,6 +2,7 @@ package com.example.emicalculator_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText etPrincipal;
     private Spinner spinnerInterestRate, spinnerTenure;
     private Button btnCalculate;
+    private static final String TAG = "EMICalculator"; // Tag for logging
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,36 +62,60 @@ public class MainActivity extends AppCompatActivity {
         // Validate the principal input
         if (principalStr.isEmpty()) {
             Toast.makeText(MainActivity.this, "Please enter a principal amount.", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "No principal amount entered.");
             return;
         }
 
-        String selectedInterestRate = spinnerInterestRate.getSelectedItem().toString();
-        String selectedTenure = spinnerTenure.getSelectedItem().toString();
+        try {
+            double principal = Double.parseDouble(principalStr); // Validate that principal is a number
+            Log.d(TAG, "Principal entered: " + principal);
 
-        // Extract numeric values from the selection strings
-        double interestRate = Double.parseDouble(selectedInterestRate.replaceAll("[^0-9.]", ""));
-        int tenureYears = Integer.parseInt(selectedTenure.replaceAll("[^0-9]", ""));
-        double principal = Double.parseDouble(principalStr);
+            String selectedInterestRate = spinnerInterestRate.getSelectedItem().toString();
+            String selectedTenure = spinnerTenure.getSelectedItem().toString();
+            Log.d(TAG, "Selected Interest Rate: " + selectedInterestRate);
+            Log.d(TAG, "Selected Tenure: " + selectedTenure);
 
-        // Convert annual interest rate to monthly and tenure to months
-        double monthlyInterestRate = interestRate / 12 / 100;
-        int tenureMonths = tenureYears * 12;
+            // Extract numeric values from the selection strings using a better regular expression
+            // This extracts the last number in the string, which is the actual interest rate
+            String interestRateStr = selectedInterestRate.replaceAll(".*?(\\d+\\.\\d+)%", "$1");
+            double interestRate = Double.parseDouble(interestRateStr);
+            int tenureYears = Integer.parseInt(selectedTenure.replaceAll("[^0-9]", ""));
 
-        // Calculate EMI
-        double emi = (principal * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, tenureMonths)) /
-                (Math.pow(1 + monthlyInterestRate, tenureMonths) - 1);
+            Log.d(TAG, "Parsed Interest Rate: " + interestRate);
+            Log.d(TAG, "Parsed Tenure Years: " + tenureYears);
 
-        // Format EMI
-        DecimalFormat decimalFormat = new DecimalFormat("#.##");
-        String emiFormatted = decimalFormat.format(emi);
+            // Convert annual interest rate to monthly interest rate
+            double monthlyInterestRate = interestRate / 12 / 100;
+            Log.d(TAG, "Monthly Interest Rate: " + monthlyInterestRate);
 
-        // Pass data to ResultActivity
-        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-        intent.putExtra("EMI", emiFormatted);
-        intent.putExtra("PRINCIPAL", principalStr);
-        intent.putExtra("INTEREST_RATE", selectedInterestRate);
-        intent.putExtra("TENURE", selectedTenure);
-        intent.putExtra("PAYMENT_FREQUENCY", "Monthly"); // For simplicity, hardcoding as Monthly
-        startActivity(intent);
+            // Convert tenure to months
+            int tenureMonths = tenureYears * 12;
+            Log.d(TAG, "Tenure in Months: " + tenureMonths);
+
+            // Calculate EMI
+            double emi = (principal * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, tenureMonths)) /
+                    (Math.pow(1 + monthlyInterestRate, tenureMonths) - 1);
+            Log.d(TAG, "Calculated EMI: " + emi);
+
+            // Format EMI to 2 decimal places
+            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            String emiFormatted = decimalFormat.format(emi);
+            Log.d(TAG, "Formatted EMI: " + emiFormatted);
+
+            // Pass data to ResultActivity
+            Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+            intent.putExtra("EMI", emiFormatted);
+            intent.putExtra("PRINCIPAL", principalStr);
+            intent.putExtra("INTEREST_RATE", selectedInterestRate);
+            intent.putExtra("TENURE", selectedTenure);
+            intent.putExtra("PAYMENT_FREQUENCY", "Monthly"); // Hardcoding as Monthly
+            startActivity(intent);
+
+        } catch (NumberFormatException e) {
+            // Catch exception if principal is not a number
+            Toast.makeText(MainActivity.this, "Please enter a valid principal amount.", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "NumberFormatException: " + e.getMessage());
+        }
     }
+
 }
